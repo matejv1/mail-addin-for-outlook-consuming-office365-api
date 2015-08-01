@@ -1,0 +1,6 @@
+*.pem
+*.log.*
+/node_modules
+/bower_components
+server-production.js
+server-debug.js

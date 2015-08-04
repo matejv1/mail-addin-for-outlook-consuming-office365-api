@@ -2,18 +2,17 @@
   'use strict';
 
   angular.module('appowa')
-      .service('customerService', ['$q', '$http', customerService]);
+      .service('restService', ['$q', '$http', restService]);
 
   /**
    * Custom Angular service that talks to a static JSON file simulating a REST API.
    */
-  function customerService($q, $http) {
+  function restService($q, $http) {
     // public signature of the service
     return {
-      lookupCustomerPartials: lookupCustomerPartials,
-      lookupCustomer: lookupCustomer,
-      getRelatedDocs: getRelatedDocs,
-      getFiles: getFiles
+      getFiles: getFiles,
+      getEmails: getEmails,
+      getCompany: getCompany
 
     };
 
@@ -24,64 +23,30 @@
      *
      * @param possibleCustomers {Array<string>}   Collection of customer last names to lookup.
      */
-    function lookupCustomerPartials(possibleCustomers) {
-      var deferred = $q.defer();
-
-      // if nothing submitted return empty collection
-      if (!possibleCustomers || possibleCustomers.length == 0) {
-        deferred.resolve([]);
-      }
-
-      // fetch data
-      var endpoint = '/content/customers.json';
-
-      // execute query
-      $http({
-        method: 'GET',
-        url: endpoint
-      }).success(function (response) {
-        var customers = [];
-
-        // look at each customer to find a match
-        response.d.results.forEach(function (customer) {
-          if (possibleCustomers.indexOf(customer.LastName) != -1) {
-            customers.push(customer);
-          }
-        });
-
-        deferred.resolve(customers);
-      }).error(function (error) {
-        deferred.reject(error);
-      });
-
-      return deferred.promise;
-    }
 
     /**
      * Finds a specific customer form the datasource.
      *
      * @param customerID  {number}    Unique ID of the customer.
      */
-    function lookupCustomer(customerID) {
-      var deferred = $q.defer();
 
-      // fetch data
-      var endpoint = '/content/customers.json';
+    function getCompany(mailbox){
+      var deferred = $q.defer();
+      console.log(mailbox.from.emailAddress);
+
+      var restQueryUrl = "https://localhost:44301/api/companies?$filter=substringof(Email,'" + mailbox.from.emailAddress + "')";
 
       $http({
         method: 'GET',
-        url: endpoint
-      }).success(function (response) {
-        var result = {};
-
-        // find the matching customer
-        response.d.results.forEach(function (customer) {
-          if (customerID == customer.CustomerID) {
-            result = customer;
-          }
-        });
-
-        deferred.resolve(result);
+        url: restQueryUrl,
+        headers: {
+            "accept": "application/json; odata=verbose",
+        }
+      }).success(function (data) {
+        console.log("restService - getCompany");
+        console.log(data);
+        
+        deferred.resolve(data);
       }).error(function (error) {
         deferred.reject(error);
       });
@@ -89,14 +54,6 @@
       return deferred.promise;
     }
 
-    function getRelatedDocs(mail) {
-      var deferred = $q.defer();
-      deferred.resolve(mail);
-      // fetch data
-      console.log(mail.from.emailAddress);
-
-      return deferred.promise;
-    }
 
     function getFiles(mailbox) {
       var deferred = $q.defer();
@@ -117,13 +74,39 @@
         result = $.map(data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results, function (item) {
                 return getFields(item.Cells.results);
             });
-
+        console.log("restService");
+        console.log(result);
+        
         deferred.resolve(result);
       }).error(function (error) {
         deferred.reject(error);
       });
 
       return deferred.promise;
+    }
+
+    //exchange:search-rest api
+    function getEmails(mailbox) {
+
+        //console.log(mailbox.from.emailAddress);
+
+        var deferred = $q.defer();
+
+        var restQueryUrl = "https://outlook.office365.com/api/v1.0/me/messages?$filter=From/EmailAddress/Address eq '" + mailbox.from.emailAddress + "'&$top=5";
+
+        return $http({
+            url: restQueryUrl,
+            method: "GET",
+            headers: {
+                "accept": "application/json",
+            }
+        }).success(function (data) {
+          deferred.resolve(data);
+        }).error(function (error) {
+          deferred.reject(error);
+        });
+
+        return deferred.promise;
     }
 
   }

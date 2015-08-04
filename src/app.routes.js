@@ -27,12 +27,20 @@
           controllerAs: 'vm',
           requireADLogin: true
         })
-        .when('/:customerID', {
-          templateUrl: 'customers/customers-detail.html',
-          controller: 'customersDetailController',
-          controllerAs: 'vm'
+        .when('/files', {
+          templateUrl: '/views/files.html',
+          controller: 'homeController',
+          controllerAs: 'vm',
+          requireADLogin: true
+        })
+        .when('/mails', {
+          templateUrl: '/views/mails.html',
+          requireADLogin: true
+        }).
+        when('/all',{
+          templateUrl: '/views/all.html',
+          requireADLogin: true
         });
-
     $routeProvider.otherwise({redirectTo: '/'});
   }
 })();

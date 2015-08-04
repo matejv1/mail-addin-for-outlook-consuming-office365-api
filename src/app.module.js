@@ -4,22 +4,17 @@
   // create the angular app
   var outlookApp = angular.module('appowa', [
     'ngRoute',
-    'ngAnimate',
-    'ngSanitize',
-    'ngMaterial',
+    'ui.bootstrap',
     'AdalAngular'
   ]);
 
   // configure the app
-  outlookApp.config(['$logProvider', '$mdThemingProvider', function ($logProvider, $mdThemingProvider) {
+  outlookApp.config(['$logProvider', function ($logProvider) {
     // set debug logging to on
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
 
-    // configure theme color
-    $mdThemingProvider.theme('default')
-                      .primaryPalette('blue');
   }]);
 
   // when office has initalized, manually bootstrap the app

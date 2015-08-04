@@ -10,10 +10,16 @@
    * @returns {{getWordCandidatesFromEmail: getWordCandidatesFromEmail}}
    */
   function officeService($q) {
+
+    var mail = getCurrentMailboxItem;
+    Office.initialize = function () {
+      mail = getCurrentMailboxItem;
+    };
+
     // public signature of the service.
     return {
       getWordCandidatesFromEmail: getWordCandidatesFromEmail,
-      getCurrentMailboxItem: getCurrentMailboxItem
+      getCurrentMailboxItem: mail
     };
 
     /** *********************************************************** */

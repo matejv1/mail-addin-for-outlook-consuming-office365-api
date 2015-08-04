@@ -11,10 +11,7 @@
   <script src="/vendor/jquery/dist/jquery.min.js" type="application/javascript"></script>
   <script src="/vendor/angular/angular.min.js" type="application/javascript"></script>
   <script src="/vendor/angular-route/angular-route.min.js" type="application/javascript"></script>
-  <script src="/vendor/angular-animate/angular-animate.min.js" type="application/javascript"></script>
-  <script src="/vendor/angular-sanitize/angular-sanitize.min.js" type="application/javascript"></script>
-  <script src="/vendor/angular-aria/angular-aria.min.js" type="application/javascript"></script>
-  <script src="/vendor/angular-material/angular-material.min.js" type="application/javascript"></script>
+  
   <script src="/vendor/adal-angular/lib/adal.js" type="application/javascript"></script>
   <script src="/vendor/adal-angular/lib/adal-angular.js" type="application/javascript"></script>
 
@@ -23,11 +20,18 @@
 
 
   <!-- styles -->
-  <link href="/vendor/angular-material/angular-material.css" rel="stylesheet" />
-  <link href="/content/app.css" rel="stylesheet" type="text/css"/>
-  <link href="/content/shuffle-animation.css" rel="stylesheet" type="text/css"/>
+  <link href="/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <style type="text/css">
+    #container{
+      padding:5px; 
+    }
+  </style>
+  
 </head>
-<body layout="column" data-test="sample" id="container" ng-app="appowa">
+<body layout="column" id="container" ng-app="appowa">
+  <a ng-href="#/files">files link</a>
+  <a ng-href="#/mails">mails link</a>
+  <a ng-href="#/all">all link</a>
 
   <div data-ng-view class="shuffle-animation"></div>
 
@@ -36,11 +40,16 @@
   <script src="app.routes.js" type="application/javascript"></script>
   <!-- services -->
   <script src="services/officeService.js" type="application/javascript"></script>
-  <script src="services/customerService.js" type="application/javascript"></script>
+  <script src="services/restService.js" type="application/javascript"></script>
+
+  <script src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="/vendor/angular-bootstrap/ui-bootstrap.js"></script>
+
   <!-- contollers -->
   <script src="controllers/homeController.js" type="application/javascript"></script>
-  <script src="customers/customers.controller.js" type="application/javascript"></script>
-  <script src="customers/customers-detail.controller.js" type="application/javascript"></script>
+  <script src="controllers/mailsController.js" type="application/javascript"></script>
+  <script src="controllers/filesController.js" type="application/javascript"></script>
+  <script src="controllers/employeesController.js" type="application/javascript"></script>
 
 </body>
 </html>

@@ -1,10 +1,29 @@
+﻿
+
+
 (function () {
   'use strict';
 
   angular.module('appowa')
-      .controller('homeController',
-      ['$q', '$location', 'officeService', 'restService',
-        homeController]);
+      .controller('mailsController', ['$q', '$location', 'officeService', 'restService',mailsController])
+      .directive('mails', mailsDirective);
+
+
+  // helper function | filter trustAsHtml
+  angular.module('appowa').filter('to_trusted', ['$sce', function ($sce) {
+      return function (text) {
+          return $sce.trustAsHtml(text);
+      };
+  }]);
+
+
+  function mailsDirective(){
+    return {
+      restrict: 'E',
+      templateUrl:'/views/partial/mails.html' 
+    }
+  }
+
 
   /**
    * Controller constructor
@@ -13,17 +32,16 @@
    * @param officeService     Custom Angular service for talking to the Office client.
    * @param restService   Custom Angular service for rest data.
    */
-  function homeController($q, $location, officeService, restService) {
+  function mailsController($q, $location, officeService, restService) {
     var vm = this;
+
+    vm.message = "message from mail controller";
 
 
     /** *********************************************************** */
 
-    Office.initialize = function () {
-      console.log(">>> Office.initialize()");
-      
-      init();
-    };
+  
+    init();
 
     /**
      * Initialize the controller
@@ -31,16 +49,15 @@
     function init() {
       getCurrentMailboxItem()
           .then(function(){
-            return getFiles()
-              .then(function(){
-                return getEmails()
-                  .then(function(){
-                    return getCompany();
-                });
-            });
+            return getEmails();
           });
     }
-    
+
+    vm.status = {
+      isFirstOpen: true,
+      isFirstDisabled: false
+    };
+
     function getCurrentMailboxItem(){
       var deferred = $q.defer();
 
@@ -48,22 +65,6 @@
           .then(function(mailbox){
 
             vm.currentMailboxItem = mailbox;
-            deferred.resolve();
-          })
-          .catch(function (error) {
-              deferred.reject(error);
-          });
-
-      return deferred.promise;
-    }
-
-    function getFiles(){
-      var deferred = $q.defer();
-
-      restService.getFiles(vm.currentMailboxItem)
-          .then(function(files){
-
-            vm.files = files;
             deferred.resolve();
           })
           .catch(function (error) {
@@ -90,22 +91,8 @@
       return deferred.promise;
     }
 
-    function getCompany(){
-      var deferred = $q.defer();
-
-      restService.getCompany(vm.currentMailboxItem)
-          .then(function(companies){
-
-            vm.companies = companies;
-            vm.numEmployees = companies.length > 0 ? companies[0].Employees.length : 0;
-            deferred.resolve();
-
-          })
-          .catch(function (error) {
-              deferred.reject(error);
-          });
-
-      return deferred.promise;
-    }
   }
+
+
+
 })();

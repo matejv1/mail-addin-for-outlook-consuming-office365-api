@@ -2,9 +2,15 @@
   'use strict';
 
   angular.module('appowa')
-      .controller('homeController',
-      ['$q', '$location', 'officeService', 'restService',
-        homeController]);
+      .controller('reportsController',['$q', '$location', 'officeService', 'restService',reportsController])
+      .directive('reports', reportsDirective);
+
+  function reportsDirective(){
+    return {
+      restrict: 'E',
+      templateUrl:'/views/partial/reports.html' 
+    }
+  }
 
   /**
    * Controller constructor
@@ -13,9 +19,8 @@
    * @param officeService     Custom Angular service for talking to the Office client.
    * @param restService   Custom Angular service for rest data.
    */
-  function homeController($q, $location, officeService, restService) {
+  function reportsController($q, $location, officeService, restService) {
     var vm = this;
-
 
     /** *********************************************************** */
 
@@ -31,11 +36,7 @@
     function init() {
       getCurrentMailboxItem()
           .then(function(){
-            getFiles()
-            getEmails()
-            getCompany();
             getReports();
-            console.log("getReports - 1");
           });
     }
 
@@ -76,62 +77,11 @@
       return deferred.promise;
     }
 
-    function getFiles(){
-      var deferred = $q.defer();
-
-      restService.getFiles(vm.currentMailboxItem)
-          .then(function(files){
-            vm.files = files;
-            deferred.resolve();
-          })
-          .catch(function (error) {
-              deferred.reject(error);
-          });
-
-      return deferred.promise;
-    }
-
-    function getEmails(){
-      var deferred = $q.defer();
-
-      restService.getEmails(vm.currentMailboxItem)
-          .then(function(emails){
-            vm.emails = emails.data.value;
-            deferred.resolve();
-          })
-          .catch(function (error) {
-              deferred.reject(error);
-          });
-
-      return deferred.promise;
-    }
-
-    function getCompany(){
-      var deferred = $q.defer();
-
-      restService.getCompany(vm.currentMailboxItem)
-          .then(function(companies){
-            vm.companies = companies;
-            vm.numEmployees = companies.length > 0 ? companies[0].Employees.length : 0;
-            deferred.resolve();
-          })
-          .catch(function (error) {
-              deferred.reject(error);
-          });
-
-      return deferred.promise;
-    }
- 
-
     function getReports(){
       var deferred = $q.defer();
-      console.log("getReports");
 
       restService.getReports(vm.currentMailboxItem)
           .then(function(object){
-            console.log("REPORTS");
-            console.log(object.data);
-            console.log(object.data[0]);
             vm.chartConfig.series = object.data;
             vm.chartConfig.options.xAxis.categories = object.data[0].years;
             deferred.resolve();

@@ -12,28 +12,12 @@
     return {
       getFiles: getFiles,
       getEmails: getEmails,
-      getCompany: getCompany
-
+      getCompany: getCompany,
+      getReports: getReports
     };
-
-    /** *********************************************************** */
-
-    /**
-     * Queries the remote service for possible customer matches.
-     *
-     * @param possibleCustomers {Array<string>}   Collection of customer last names to lookup.
-     */
-
-    /**
-     * Finds a specific customer form the datasource.
-     *
-     * @param customerID  {number}    Unique ID of the customer.
-     */
 
     function getCompany(mailbox){
       var deferred = $q.defer();
-      console.log(mailbox.from.emailAddress);
-
       var restQueryUrl = "https://localhost:44301/api/companies?$filter=substringof(Email,'" + mailbox.from.emailAddress + "')";
 
       $http({
@@ -57,8 +41,6 @@
 
     function getFiles(mailbox) {
       var deferred = $q.defer();
-      console.log(mailbox.from.emailAddress);
-      // fetch data
       var restQueryUrl = "https://agile9.sharepoint.com/_api/search/query?querytext='" + mailbox.from.emailAddress + "'";
 
       $http({
@@ -85,14 +67,29 @@
       return deferred.promise;
     }
 
-    //exchange:search-rest api
     function getEmails(mailbox) {
-
-        //console.log(mailbox.from.emailAddress);
-
         var deferred = $q.defer();
-
         var restQueryUrl = "https://outlook.office365.com/api/v1.0/me/messages?$filter=From/EmailAddress/Address eq '" + mailbox.from.emailAddress + "'&$top=5";
+
+        return $http({
+            url: restQueryUrl,
+            method: "GET",
+            headers: {
+                "accept": "application/json",
+            }
+        }).success(function (data) {
+          deferred.resolve(data);
+        }).error(function (error) {
+          deferred.reject(error);
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getReports(mailbox) {
+        var deferred = $q.defer();
+        var restQueryUrl = "https://localhost:44301/api/reports?mail=" + mailbox.from.emailAddress;
 
         return $http({
             url: restQueryUrl,

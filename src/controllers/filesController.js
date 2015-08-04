@@ -68,6 +68,7 @@
 
           	console.log("filesController");
         	console.log(files);
+        	vm.count = files.length || 0;
 
             vm.files = files;
             deferred.resolve();

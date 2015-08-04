@@ -18,20 +18,45 @@
   <!-- load Office.js & call Office.initialize() ASAP... must be within 5s of page request -->
   <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/Office.debug.js" type="application/javascript"></script>
 
-
+  <script src="https://code.highcharts.com/stock/highstock.src.js"></script>
+  <script src="/vendor/highcharts/highcharts.js"></script>
   <!-- styles -->
   <link href="/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
   <style type="text/css">
     #container{
       padding:5px; 
     }
+    .panel-body {
+      padding: 10px;
+    }
+    .list-group {
+      margin-bottom: 5px;
+    }
   </style>
   
 </head>
 <body layout="column" id="container" ng-app="appowa">
-  <a ng-href="#/files">files link</a>
-  <a ng-href="#/mails">mails link</a>
-  <a ng-href="#/all">all link</a>
+  
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">CONTEXT</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/files">Files</a></li>
+          <li><a href="#/mails">Mails</a></li>
+          <li><a href="#/employees">Employees</a></li>
+          <li><a href="#/reports">Reports</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
 
   <div data-ng-view class="shuffle-animation"></div>
 
@@ -50,6 +75,7 @@
   <script src="controllers/mailsController.js" type="application/javascript"></script>
   <script src="controllers/filesController.js" type="application/javascript"></script>
   <script src="controllers/employeesController.js" type="application/javascript"></script>
+  <script src="controllers/reportsController.js" type="application/javascript"></script>
 
 </body>
 </html>

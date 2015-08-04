@@ -5,7 +5,8 @@
   var outlookApp = angular.module('appowa', [
     'ngRoute',
     'ui.bootstrap',
-    'AdalAngular'
+    'AdalAngular',
+    'highcharts-ng'
   ]);
 
   // configure the app

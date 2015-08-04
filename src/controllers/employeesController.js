@@ -71,7 +71,7 @@
         	console.log(companies);
 
             vm.companies = companies;
-            vm.numEmployees = companies[0].Employees.length;
+            vm.numEmployees = companies.length > 0 ? companies[0].Employees.length : 0;
             deferred.resolve();
 
           })

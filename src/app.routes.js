@@ -22,23 +22,26 @@
     
     $routeProvider
         .when('/', {
-          templateUrl: '/views/home.html',
+          templateUrl: '/views/home-view.html',
           controller: 'homeController',
-          controllerAs: 'vm',
           requireADLogin: true
         })
         .when('/files', {
-          templateUrl: '/views/files.html',
+          templateUrl: '/views/files-view.html',
           controller: 'homeController',
           controllerAs: 'vm',
           requireADLogin: true
         })
         .when('/mails', {
-          templateUrl: '/views/mails.html',
+          templateUrl: '/views/mails-view.html',
           requireADLogin: true
-        }).
-        when('/all',{
-          templateUrl: '/views/all.html',
+        })
+        .when('/employees', {
+          templateUrl: '/views/employees-view.html',
+          requireADLogin: true
+        })
+        .when('/reports', {
+          templateUrl: '/views/reports-view.html',
           requireADLogin: true
         });
     $routeProvider.otherwise({redirectTo: '/'});

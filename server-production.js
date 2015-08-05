@@ -9,7 +9,6 @@ var app = express();
 // set static routes
 app.use('/', express.static(__dirname + '/src'));
 app.use('/vendor', express.static(__dirname + '/bower_components'));
-app.use('/template', express.static(__dirname + '/bower_components/ui.bootstrap/template'));
 
 var httpServer = http.createServer(app);
 
@@ -19,4 +18,4 @@ httpServer.listen(PORT);
 console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
 console.log('HTTPS Server listening @ https://%s:%s', PORT);
 console.log('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+');
-
+ 

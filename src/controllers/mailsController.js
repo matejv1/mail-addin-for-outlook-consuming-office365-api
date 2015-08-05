@@ -1,7 +1,4 @@
-﻿
-
-
-(function () {
+﻿(function () {
   'use strict';
 
   angular.module('appowa')
@@ -35,12 +32,12 @@
   function mailsController($q, $location, officeService, restService) {
     var vm = this;
 
-    vm.message = "message from mail controller";
-
-
     /** *********************************************************** */
 
-  
+    Office.initialize = function () {
+      console.log(">>> Office.initialize()");
+      init();
+    };
     init();
 
     /**
@@ -90,9 +87,5 @@
 
       return deferred.promise;
     }
-
   }
-
-
-
 })();

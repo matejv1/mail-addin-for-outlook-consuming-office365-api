@@ -16,7 +16,6 @@
   function homeController($q, $location, officeService, restService) {
     var vm = this;
 
-
     /** *********************************************************** */
 
     Office.initialize = function () {
@@ -35,7 +34,6 @@
             getEmails()
             getCompany();
             getReports();
-            console.log("getReports - 1");
           });
     }
 
@@ -121,11 +119,9 @@
 
       return deferred.promise;
     }
- 
 
     function getReports(){
       var deferred = $q.defer();
-      console.log("getReports");
 
       restService.getReports(vm.currentMailboxItem)
           .then(function(object){

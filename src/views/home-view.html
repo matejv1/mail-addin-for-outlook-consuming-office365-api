@@ -18,33 +18,33 @@
     </accordion-group>
 
     <accordion-group ng-show="ctrl.files.length > 0">
-            <accordion-heading>
-                Related Documents ({{ ctrl.files.length }})
-            </accordion-heading>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>FileExtension</th>
-                            <th>Author</th>
-                            <th>Created</th>
-                            <th>Modified</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="document in ctrl.files | filter: filterDocs">
-                            <th scope="row"><img ng-src="https://agile9.sharepoint.com/_layouts/15/images/icdocx.png" /></th>
-                            <td><a ng-href={{document.LinkingUrl}}>{{document.Title}}</a></td>
-                            <td>{{document.FileExtension}}</td>
-                            <td>{{document.Author}}</td>
-                            <td>{{document.Write | date:'dd/MM/yyyy h:mma'}}</td>
-                            <td>{{document.LastModifiedTime | date:'dd/MM/yyyy h:mma'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <accordion-heading>
+            Related Documents ({{ ctrl.files.length }})
+        </accordion-heading>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>FileExtension</th>
+                        <th>Author</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="document in ctrl.files | filter: filterDocs">
+                        <th scope="row"><img ng-src="https://agile9.sharepoint.com/_layouts/15/images/icdocx.png" /></th>
+                        <td><a ng-href={{document.LinkingUrl}}>{{document.Title}}</a></td>
+                        <td>{{document.FileExtension}}</td>
+                        <td>{{document.Author}}</td>
+                        <td>{{document.Write | date:'dd/MM/yyyy h:mma'}}</td>
+                        <td>{{document.LastModifiedTime | date:'dd/MM/yyyy h:mma'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </accordion-group>
 
     <accordion-group ng-show="ctrl.numEmployees > 0">

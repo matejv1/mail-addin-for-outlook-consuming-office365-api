@@ -4,10 +4,10 @@
            xsi:type="MailApp">
   <Id>edf8aebc-6288-4c5a-b38e-146cb4fb7102</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>OfficeDev</ProviderName>
+  <ProviderName>Agile9.net</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="OutlookAddInOffice365Api-Debug"/>
-  <Description DefaultValue="OutlookAddInOffice365Api-Debug Description"/>
+  <DisplayName DefaultValue="Context"/>
+  <Description DefaultValue="Context Owa App"/>
   <IconUrl DefaultValue="https://localhost:8443/content/OfficeDev.png"/>
   <Hosts>
     <Host Name="Mailbox"/>

@@ -1,13 +1,9 @@
-
-
-
 (function () {
   'use strict';
 
   angular.module('appowa')
       .controller('employeesController', ['$q', '$location', 'officeService', 'restService', employeesController])
       .directive('employees', employeesDirective);
-
 
   function employeesDirective(){
   	return {
@@ -25,13 +21,16 @@
   function employeesController($q, $location, officeService, restService) {
     var vm = this;
 
+	Office.initialize = function () {
+      	console.log(">>> Office.initialize()");
+      	init();
+    };
+    init();
+
     vm.status = {
       isFirstOpen: true,
       isFirstDisabled: false
     };
-
-    init();
-
 
     /**
      * Initialize the controller
@@ -42,8 +41,6 @@
             return getCompany();
           });
     }
-
-    
 
     function getCurrentMailboxItem(){
       var deferred = $q.defer();
@@ -81,9 +78,5 @@
 
       return deferred.promise;
     }
-
   }
-
-
-
 })();

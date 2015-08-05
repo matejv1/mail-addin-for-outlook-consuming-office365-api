@@ -27,9 +27,6 @@
             "accept": "application/json; odata=verbose",
         }
       }).success(function (data) {
-        console.log("restService - getCompany");
-        console.log(data);
-        
         deferred.resolve(data);
       }).error(function (error) {
         deferred.reject(error);
@@ -37,7 +34,6 @@
 
       return deferred.promise;
     }
-
 
     function getFiles(mailbox) {
       var deferred = $q.defer();
@@ -56,9 +52,7 @@
         result = $.map(data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results, function (item) {
                 return getFields(item.Cells.results);
             });
-        console.log("restService");
-        console.log(result);
-        
+
         deferred.resolve(result);
       }).error(function (error) {
         deferred.reject(error);
@@ -86,7 +80,6 @@
         return deferred.promise;
     }
 
-
     function getReports(mailbox) {
         var deferred = $q.defer();
         var restQueryUrl = "https://localhost:44301/api/reports?mail=" + mailbox.from.emailAddress;
@@ -105,7 +98,6 @@
 
         return deferred.promise;
     }
-
   }
 })();
 

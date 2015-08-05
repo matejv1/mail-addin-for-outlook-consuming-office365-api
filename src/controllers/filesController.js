@@ -1,13 +1,9 @@
-
-
-
 (function () {
   'use strict';
 
   angular.module('appowa')
       .controller('filesController', ['$q', '$location', 'officeService', 'restService', filesController])
       .directive('files', filesDirective);
-
 
   function filesDirective(){
   	return {
@@ -41,8 +37,6 @@
             return getFiles();
           });
     }
-
-    
 
     function getCurrentMailboxItem(){
       var deferred = $q.defer();
@@ -80,9 +74,5 @@
 
       return deferred.promise;
     }
-
   }
-
-
-
 })();

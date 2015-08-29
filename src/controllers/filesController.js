@@ -26,7 +26,7 @@
       isFirstDisabled: false
     };
 
-	init();
+    init();
 
     /**
      * Initialize the controller
@@ -43,7 +43,6 @@
 
       officeService.getCurrentMailboxItem()
           .then(function(mailbox){
-
             vm.currentMailboxItem = mailbox;
             deferred.resolve();
           })
@@ -59,14 +58,9 @@
 
       restService.getFiles(vm.currentMailboxItem)
           .then(function(files){
-
-          	console.log("filesController");
-        	console.log(files);
-        	vm.count = files.length || 0;
-
+    	      vm.count = files.length || 0;
             vm.files = files;
             deferred.resolve();
-
           })
           .catch(function (error) {
               deferred.reject(error);

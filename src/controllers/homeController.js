@@ -125,9 +125,6 @@
 
       restService.getReports(vm.currentMailboxItem)
           .then(function(object){
-            console.log("REPORTS");
-            console.log(object.data);
-            console.log(object.data[0]);
             vm.chartConfig.series = object.data;
             vm.chartConfig.options.xAxis.categories = object.data[0].years;
             deferred.resolve();

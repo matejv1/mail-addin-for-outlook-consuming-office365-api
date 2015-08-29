@@ -37,7 +37,7 @@
 
     function getFiles(mailbox) {
       var deferred = $q.defer();
-      var restQueryUrl = "https://agile9.sharepoint.com/_api/search/query?querytext='" + mailbox.from.emailAddress + "'";
+      var restQueryUrl = "https://" + appConf.tenantName + ".sharepoint.com/_api/search/query?querytext='" + mailbox.from.emailAddress + "'";
 
       $http({
         method: 'GET',

@@ -1,3 +1,17 @@
+
+var appConf = {
+  tenantName: "agile9"
+};
+
+var routeConf = {};
+    routeConf['tenant']         = appConf.tenantName + '.onmicrosoft.com';
+    routeConf['clientId']       = '9e03550c-1678-4093-9b12-05946b4df46b';
+    routeConf['cacheLocation']  = 'localStorage';
+    routeConf["endpoints"] = {};
+    routeConf.endpoints['https://' + appConf.tenantName + '.sharepoint.com/_api/'] = 'https://' + appConf.tenantName + '.sharepoint.com';
+    routeConf.endpoints['https://' + appConf.tenantName + '-my.sharepoint.com/_api/v1.0/me'] = 'https://' + appConf.tenantName + '-my.sharepoint.com';
+    routeConf.endpoints['https://outlook.office365.com/api/v1.0/me'] = 'https://outlook.office365.com';
+
 (function () {
   'use strict';
 
@@ -9,16 +23,7 @@
   function routeConfigurator($routeProvider, $httpProvider, adalProvider) {
 
     //Initialize ADAL
-    adalProvider.init({
-        tenant: "agile9.onmicrosoft.com",
-        clientId: "9e03550c-1678-4093-9b12-05946b4df46b",
-        cacheLocation: "localStorage",
-        endpoints: {
-            'https://agile9.sharepoint.com/_api/': 'https://agile9.sharepoint.com',
-            'https://agile9-my.sharepoint.com/_api/v1.0/me': 'https://agile9-my.sharepoint.com',
-            'https://outlook.office365.com/api/v1.0/me': 'https://outlook.office365.com'
-        }
-    }, $httpProvider);
+    adalProvider.init(routeConf, $httpProvider);
     
     $routeProvider
         .when('/', {

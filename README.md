@@ -68,7 +68,8 @@ Note:
 
 1. Open source location on local computer using Explorer. 
 2. Open Command Prompt in this folder (Hold SHIFT + Right click -> Open Command Windows here)
-3. Run: npm install
+3. Run: npm install bower
+4. Run: npm install
 
 ### 1.4 Upload Office Manifest to Exchange ###
 
